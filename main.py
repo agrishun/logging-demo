@@ -19,24 +19,24 @@ logging_config = {
         },
     },
     'root': {
-        'level': 'DEBUG',
+        'level': 'INFO',
         'handlers': ['file']
     },
 }
+
 logging.config.dictConfig(logging_config)
+logger = logging.getLogger()
 
-
-def func(value):
-    logger = logging.getLogger(__name__)
+def test(value):
     msg = f'process {os.getpid()} message {value}'
     logger.info(msg)
 
 
 def main():
-    func('start')
+    test('main_start')
     p = Pool(4)
-    p.map(func, [1, 2, 3, 4])
-    func('end')
+    p.map(test, [1, 2, 3])
+    test('main_end')
 
 
 if __name__ == '__main__':
